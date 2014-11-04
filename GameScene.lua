@@ -122,29 +122,41 @@ function GameScene:showEndLayer( ... )
     end
     local size = gui:getContentSize()
     local endLayer = cc.LayerColor:create(cc.c4b(0,0,0,128),size.width,size.height)
-    cc.Director:getInstance():getRunningScene():addChild(endLayer)
+    gui:addChild(endLayer,256)
     local function onTouchBegan(touch, event)
         return true
-    end
-
-    local function onTouchEnded( touch, event )
-        endLayer:removeFromParent()
-        self:startGame()
     end
 
     local listener = cc.EventListenerTouchOneByOne:create()
     listener:setSwallowTouches(true)
     -- 注册两个回调监听方法
     listener:registerScriptHandler(onTouchBegan,cc.Handler.EVENT_TOUCH_BEGAN )
-    listener:registerScriptHandler(onTouchEnded,cc.Handler.EVENT_TOUCH_ENDED )
     local eventDispatcher = endLayer:getEventDispatcher()-- 时间派发器
     -- 绑定触摸事件到层当中
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, endLayer)
 
-    local gameOverLabel = cc.Label:createWithTTF("GAME OVER","fonts/Marker Felt.ttf",36)
-    endLayer:addChild(gameOverLabel)
-    gameOverLabel:setPosition(cc.p(size.width/2, size.height/2))
+    local gameOverBg = cc.Sprite:create('demo/bg_gameover.png')
+    endLayer:addChild(gameOverBg)
+    gameOverBg:setPosition(size.width/2,size.height/2)
+    local bgSize = gameOverBg:getContentSize()
 
+    local pBackgroundButton            = cc.Scale9Sprite:create("demo/btn_tryagain_normal.png")
+    local pBackgroundHighlightedButton = cc.Scale9Sprite:create("demo/btn_tryagain_selected.png")
+    local playAgainBtn = cc.ControlButton:create()
+    playAgainBtn:setBackgroundSpriteForState(pBackgroundButton, cc.CONTROL_STATE_NORMAL)
+    playAgainBtn:setBackgroundSpriteForState(pBackgroundHighlightedButton,cc.CONTROL_STATE_HIGH_LIGHTED)
+    gameOverBg:addChild(playAgainBtn,1)
+    playAgainBtn:setPreferredSize(cc.size(200,100))
+    playAgainBtn:setPosition(cc.p(bgSize.width/2, bgSize.height*0.4))
+    playAgainBtn:registerControlEventHandler(function ( ... )
+        self:startGame()
+        endLayer:removeFromParent()
+    end,cc.CONTROL_EVENTTYPE_TOUCH_UP_INSIDE)
+    local btnSize = playAgainBtn:getContentSize()
+    local playAgainSp = cc.Sprite:create('demo/tryagain.png')
+    playAgainBtn:addChild(playAgainSp)
+    
+    playAgainSp:setPosition(cc.p(btnSize.width/2, btnSize.height/2))
 end
 
 function GameScene:LoadGUI()
