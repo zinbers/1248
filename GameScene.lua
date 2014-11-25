@@ -265,7 +265,7 @@ end
 
 function GameScene:moveLeft( ... )
     self:stopNumberLabelBlink()
-    if gui.curSelX <= 0 then do return end end
+    if gui.curSelY <= 1 then do return end end
     if gameMap[gui.curSelX][gui.curSelY - 1] ~= nil then
         print('-------------befor left begin------------')
         for k,v in pairs(gameMap[gui.curSelX]) do
