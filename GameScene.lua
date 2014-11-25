@@ -365,6 +365,12 @@ function GameScene:moveDown( ... )
         local function move( params )
             -- dis, changeToNum, moveNode
             if params.dis == nil then do return end end
+	    if params.dis == 0 then
+	       if params.callback then
+	          params.callback()
+	  	end
+		do return end
+	    end
             local sp = nil
             if params.moveNode then
                 sp = params.moveNode
