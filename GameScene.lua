@@ -562,7 +562,7 @@ function GameScene:moveDown( ... )
             end
         end
         
-        if dis > 0 then
+        if dis >= 0 then
             move{
                 dis = dis,
                 callback = function ( ... )
