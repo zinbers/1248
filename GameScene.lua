@@ -459,6 +459,11 @@ function GameScene:moveDown( ... )
                     moveOneDistance(i,j,function ( ... )
                         curMoveCount = curMoveCount + 1
                         if curMoveCount == moveCount then
+			    for i=1,cfg.gw do    --set first line nil
+				gameMap[1][i] = 0
+				gameMapNode[1][i] = nil
+			    end
+
                             if callback then
                                 callback()
                             end
@@ -466,12 +471,7 @@ function GameScene:moveDown( ... )
                     end)
                 end
             end
-
-            for i=1,cfg.gw do    --set first line nil
-                gameMap[1][i] = 0
-                gameMapNode[1][i] = nil
-            end
-        end
+	end
         local function tryMergeAndSweep()
             if trySweepLine() or tryMoveDownForMerge() then
                 if trySweepLine() then
