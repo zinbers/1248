@@ -89,6 +89,8 @@ end)
 
 function GameScene.create()
     local scene = GameScene.new()
+    --    scene:addChild(scene:createLayerFarm())
+    --    scene:addChild(scene:createLayerMenu())
     initSDK()
     math.randomseed(tostring(os.time()):reverse():sub(1, 6))
     scene:addChild(scene:LoadGUI(),0,GUI_TAG)
