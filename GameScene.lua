@@ -37,7 +37,6 @@ end
 local agent = nil
 local ads_plugin = nil
 
-local test = nil
 local function initSDK( ... )
     agent = AgentManager:getInstance()
     --init
