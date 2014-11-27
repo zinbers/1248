@@ -4,6 +4,5 @@ local config = {
 	['clear']='demo/clear.mp3',
 	['merge']='demo/merge.mp3',
 	['move']='demo/move.mp3',
-
 }
 return config
