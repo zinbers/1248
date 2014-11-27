@@ -69,7 +69,6 @@ end
 
 local function showAds( ... )
     if ads_plugin and ads_plugin:isAdTypeSupported(AdsType.AD_TYPE_BANNER) then
-        cclog('~~~~~ showAds')
         ads_plugin:showAds(AdsType.AD_TYPE_BANNER)
     else
         cclog('ads_plugin was not support')
